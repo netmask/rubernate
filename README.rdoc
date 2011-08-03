@@ -1,16 +1,15 @@
 = rubernate
 
 Create a class with common java values
-'''ruby
-class User < Rubernate::Entity
-  integer :id , :id=>true , :generated => [:auto=>true, :strategy=>:auto]
-  string :name
-  float :float_otra
-  double :double_otra
-  boolean :active
-  
-end
-
+	'''ruby
+    class User < Rubernate::Entity
+	integer :id , :id=>true , :generated => [:auto=>true, :strategy=>:auto]
+  	string :name
+  	float :float_otra
+  	double :double_otra
+  	boolean :active
+  	end
+	'''
 rubernate = Rubernate::Init.new
 rubernate.load_classes(User)
 
