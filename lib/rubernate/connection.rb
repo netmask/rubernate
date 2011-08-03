@@ -7,39 +7,40 @@ module Rubernate
     attr_accessor :connecion, :factory, :configuration
 
 
-    def initialize(*classes)
+    def initialize(connection,*classes)
 
       import org.hibernate.Session
       import org.hibernate.SessionFactory
       import org.hibernate.Transaction
       import org.hibernate.cfg.AnnotationConfiguration
+      import org.hibernate.ejb.Ejb3Configuration
 
 
-      self.configuration = AnnotationConfiguration.new
-      #self.configuration.add_package "rubernate.models"
+      self.configuration = Ejb3Configuration.new
+      
+      self.configuration.set_property "hibernate.dialect",connection[:dialect]
+      self.configuration.set_property "hibernate.connection.url", connection[:url]
+      self.configuration.set_property "hibernate.connection.driver_class", connection[:driver]
+      self.configuration.set_property "hibernate.connection.user", "root"
+      self.configuration.set_property "hibernate.connection.password", ""
+      self.configuration.set_property "javax.persistence.provider ","org.hibernate.ejb.HibernatePersistence"
+      self.configuration.set_property "hibernate.hbm2ddl.auto", connection[:auto_ddl]
+      self.configuration.set_property "hibernate.connection.provider_class","org.hibernate.connection.DriverManagerConnectionProvider"
       classes.each do |clazz|
         clazz.each do |c1|
           configuration.addAnnotatedClass c1
         end
       end
-      configuration.set_property "hibernate.dialect", "org.hibernate.dialect.MySQLDialect"
-      configuration.set_property "hibernate.connection.url", "jdbc:mysql://localhost:3306/rubernate"
-      configuration.set_property "hibernate.connection.driver_class", "com.mysql.jdbc.Driver"
-      configuration.set_property "hibernate.current_session_context_class", "thread"
-      configuration.set_property "hibernate.connection.username", "root"
-      configuration.set_property "hibernate.connection.password", ""
-
 
     end
 
 
-    def get_session
-      factory.open_session
+    def entity_manager_factory
+      @@factory = configuration.buildEntityManagerFactory
     end
-
-    def connect
-      self.factory= configuration.buildSessionFactory
-      factory.open_session
+    
+    def self.entity_manager
+      @@factory.createEntityManager
     end
   end
 end

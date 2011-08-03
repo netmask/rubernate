@@ -34,7 +34,7 @@ module Rubernate
       
                         
       self.class_pool = ClassPool.get_default
-      ProxyClass.new(self.class_pool.makeClass("#{DEFAULT_NAMESPACE}.#{name}"))
+      ProxyClass.new(self.class_pool.makeClass("#{name}"))
     end
     
     class ProxyClass
@@ -57,11 +57,18 @@ module Rubernate
           ann = Annotation.new("javax.persistence.Entity",self.const_pool)
           ann.add_member_value "name", StringMemberValue.new(self.ct_class.name,self.const_pool)
           
-          
+
           ann_attr.set_annotation ann          
           self.class_file.addAttribute(ann_attr)                    
         end
         
+        def add_annotation(field,name)
+          ann_attr = AnnotationsAttribute.new(self.const_pool, AnnotationsAttribute.visibleTag)
+          ann = Annotation.new(name,self.const_pool)
+          
+          ann_attr.set_annotation ann
+          field.getFieldInfo.addAttribute ann_attr
+        end
         
         def add_simple(type,name)
           add_parameter(Rubernate::Bytecode.mapped_types[type],name)
@@ -81,6 +88,8 @@ module Rubernate
            set = CtMethod.make(" public void set#{name.capitalize}(#{type} #{name}){ this.#{name} = #{name}; }",self.ct_class)          
            self.ct_class.add_method(get)
            self.ct_class.add_method(set)
+           
+           return field
         end
         
         def to_class          

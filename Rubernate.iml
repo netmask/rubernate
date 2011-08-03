@@ -8,13 +8,6 @@
         <I18N_FOLDERS number="0" />
       </configuration>
     </facet>
-    <facet type="JRUBY" name="JRuby">
-      <configuration>
-        <JRUBY_FACET_CONFIG_ID NAME="JRUBY_SDK_NAME" VALUE="RVM: jruby-1.6.3" />
-        <LOAD_PATH number="0" />
-        <I18N_FOLDERS number="0" />
-      </configuration>
-    </facet>
   </component>
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
@@ -25,6 +18,11 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" scope="PROVIDED" name="RVM: jruby-1.6.3 facet library" level="application" />
     <orderEntry type="library" name="lib" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="smart_colored (v1.0.2, RVM: jruby-1.6.3) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="git (v1.2.5, RVM: jruby-1.6.3) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="bundler (v1.0.15, RVM: jruby-1.6.3) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="rake (v0.8.7, RVM: jruby-1.6.3) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="jeweler (v1.6.4, RVM: jruby-1.6.3) [gem]" level="application" />
   </component>
 </module>
 

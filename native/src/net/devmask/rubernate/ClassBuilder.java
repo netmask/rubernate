@@ -7,6 +7,7 @@ package net.devmask.rubernate;
 import javassist.*;
 import javassist.bytecode.annotation.StringMemberValue;
 import org.hibernate.annotations.Entity;
+import org.hibernate.ejb.Ejb3Configuration;
 
 import javax.jws.Oneway;
 
@@ -16,7 +17,7 @@ public class ClassBuilder {
 
     public String foa;
     public void foo(){
-        IntegerMemberValue
+        new CtField().getFieldInfo().addAttribute();
     }
 
 
