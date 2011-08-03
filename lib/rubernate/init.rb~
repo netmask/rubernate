@@ -21,7 +21,7 @@ module Rubernate
     end
     
     def load_jars
-      Dir["./native/lib/*.jar"].each do |file|
+      Dir["../native/lib/*.jar"].each do |file|
           puts "Loading: #{file}"
           require file
       end      

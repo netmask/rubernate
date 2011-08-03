@@ -1,11 +1,13 @@
 module Rubernate
+  
+  # This utilit  class creates the java 'classes' 
   class Bytecode
 
     require 'java'
         
     attr_accessor :class_pool
     
-    # :3
+    # NOT IMPLEMENTED
     DEFAULT_NAMESPACE = "rubernate.models"
     
     def initialize
@@ -26,7 +28,9 @@ module Rubernate
         @@mapped_types
       end
     end
-   
+    # Creates a new class
+    # @param[String] class name
+    # @returns[ProxyClass]
     def create_class(name)
       java_import 'javassist.ClassPool'
       java_import 'javassist.CtClass'
@@ -37,6 +41,7 @@ module Rubernate
       ProxyClass.new(self.class_pool.makeClass("#{name}"))
     end
     
+    # Representation of the generated class
     class ProxyClass
 
         attr_accessor :clazz, :ct_class, :frozen, :class_file, :const_pool
@@ -62,6 +67,9 @@ module Rubernate
           self.class_file.addAttribute(ann_attr)                    
         end
         
+        # adds full qulified java annotation to a field
+        # @param[CtField] javassist field
+        # @param[String] field name
         def add_annotation(field,name)
           ann_attr = AnnotationsAttribute.new(self.const_pool, AnnotationsAttribute.visibleTag)
           ann = Annotation.new(name,self.const_pool)
@@ -70,11 +78,18 @@ module Rubernate
           field.getFieldInfo.addAttribute ann_attr
         end
         
+        # add simple parameter to a field
+        # (see #add_parameter)
         def add_simple(type,name)
           add_parameter(Rubernate::Bytecode.mapped_types[type],name)
         end
         
-        #This wild add a parammeter to given class and generates te setter
+        
+        # This wild add a parammeter to given class and generates te setter
+        #
+        # @param[String] java type 
+        # @Param[String] name of the field
+        # @return[CtField] Generated field
         def add_parameter(type,name)
            java_import 'javassist.CtField'
            java_import 'javassist.CtMethod'           
@@ -92,6 +107,7 @@ module Rubernate
            return field
         end
         
+        # @return[Class] java byte code generated class
         def to_class          
           self.ct_class.to_class
         end
