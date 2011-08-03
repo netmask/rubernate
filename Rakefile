@@ -17,8 +17,8 @@ Jeweler::Tasks.new do |gem|
   gem.name = "rubernate"
   gem.homepage = "http://github.com/netmask/rubernate"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = %Q{Hibernate for Ruby}
+  gem.description = %Q{Library for Mapping Ruby Classes has Hibernate classes }
   gem.email = "jonathan@devmask.net"
   gem.authors = ["Jonathan Garay"]
   # dependencies defined in Gemfile
