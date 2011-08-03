@@ -1,7 +1,7 @@
 = rubernate
 
 Create a class with common java values
-
+```ruby
 class User < Rubernate::Entity
   integer :id , :id=>true , :generated => [:auto=>true, :strategy=>:auto]
   string :name
@@ -30,7 +30,7 @@ User.all.each do |user|
 end
 
 User.find(1)
-
+```
 == Contributing to rubernate
  
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet
