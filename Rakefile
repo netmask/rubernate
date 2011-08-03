@@ -44,3 +44,6 @@ task :default => :test
 
 require 'yard'
 YARD::Rake::YardocTask.new
+
+Jeweler::GemcutterTasks.new
+

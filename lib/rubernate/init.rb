@@ -6,7 +6,7 @@ require 'rubernate/bytecode'
 require 'rubernate/class_parser'
 
 require 'java'
-
+require 'rubygems'
 
 module Rubernate
   class Init
@@ -14,18 +14,11 @@ module Rubernate
       
     def initialize
       self.hibernate_classes = []
-      
-      load_jars      
+                  
       bytecode_provider
       
     end
     
-    def load_jars
-      Dir["./native/lib/*.jar"].each do |file|
-          puts "Loading: #{file}"
-          require file
-      end      
-    end
     
     def load_classes(*classes)
       classes.each do |clazz|
