@@ -12,5 +12,10 @@ module Rubernate
     def self.all()
       Connection.entity_manager.create_query("SELECT e FROM #{self} as e ").result_list
     end
+    
+    def self.by_hql(hql)
+      Connection.entity_manager.create_query(hql)
+    end
+    
   end
 end
