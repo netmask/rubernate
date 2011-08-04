@@ -50,6 +50,7 @@ Gem::Specification.new do |s|
     "lib/rubernate/init.rb",
     "lib/rubernate/relations.rb",
     "out/production/Rubernate/net/devmask/rubernate/ClassBuilder.class",
+    "rubernate.gemspec",
     "test/helper.rb",
     "test/test_rubernate.rb"
   ]
