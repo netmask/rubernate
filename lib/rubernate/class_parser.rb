@@ -5,7 +5,6 @@ module Rubernate
     attr_accessor :clazz,:bytecode,:proxy_class
     
     def initialize(clazz,bytecode)
-      puts "Class"
       self.clazz = clazz  
       self.bytecode = bytecode
       self.proxy_class = bytecode.create_class(name)      
@@ -25,7 +24,7 @@ module Rubernate
     end
     
     def build_id_for(field)
-      self.proxy_class.add_annotation field,"javax.persistence.Id"
+      self.proxy_class.add_annotation field,"javax/persistence/Id"
     end
     
     

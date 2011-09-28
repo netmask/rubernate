@@ -4,6 +4,7 @@ require 'rubernate/entity'
 require "rubernate/connection"
 require 'rubernate/bytecode'
 require 'rubernate/class_parser'
+require 'rubernate/asm_proxy_class'
 
 require 'java'
 require 'rubygems'

@@ -21,8 +21,8 @@ module Rubernate
       self.configuration.set_property "hibernate.dialect",connection[:dialect]
       self.configuration.set_property "hibernate.connection.url", connection[:url]
       self.configuration.set_property "hibernate.connection.driver_class", connection[:driver]
-      self.configuration.set_property "hibernate.connection.user", "root"
-      self.configuration.set_property "hibernate.connection.password", ""
+      self.configuration.set_property "hibernate.connection.user", connection[:username]
+      self.configuration.set_property "hibernate.connection.password", connection[:password]
       self.configuration.set_property "javax.persistence.provider ","org.hibernate.ejb.HibernatePersistence"
       self.configuration.set_property "hibernate.hbm2ddl.auto", connection[:auto_ddl]
       self.configuration.set_property "hibernate.connection.provider_class","org.hibernate.connection.DriverManagerConnectionProvider"

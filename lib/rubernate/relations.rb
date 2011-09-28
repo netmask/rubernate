@@ -23,7 +23,7 @@ module Rubernate
         method = "#{function}".to_sym
         send :define_method, method do |name,*arguments|
           map = arguments.first
-          add_relation(name,map.delete(:class),function,arguments)
+          add_relation(name,map.delete(:class),function,arguments) if map != nil
         end
       end 
       
