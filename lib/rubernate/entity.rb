@@ -1,6 +1,6 @@
 require 'java'
 module Rubernate
-  class Entity < java.lang.Object
+  class Entity 
     include Relations
     
     attr_accessor :proxy_class
@@ -17,5 +17,11 @@ module Rubernate
       Connection.entity_manager.create_query(hql)
     end
     
+    def save
+      em = Connection.entity_manager 
+      em.transaction.begin
+      em.persist(self)
+      em.transaction.commit
+    end
   end
 end

@@ -15,9 +15,9 @@ java_import 'javassist.ByteArrayClassPath'
 module  Rubernate
   class AsmProxyClass < java.lang.ClassLoader
     
-    attr_accessor :class_writer, :name
+    attr_accessor :class_writer, :name, :class_path
     
-    DEFAULT_NAMESPACE = "rubernate/models"
+     
     
     
     @@descriptors = {
@@ -42,8 +42,10 @@ module  Rubernate
       super()
       self.fields_v = {}
       self.name = name
+      self.class_path =  "rubernate/models/#{self.name}"
+      
       self.class_writer = ClassWriter.new(0)
-      self.class_writer.visit(Opcodes.V1_6 ,Opcodes.ACC_PUBLIC + Opcodes.ACC_SUPER, name , nil, "java/lang/Object", nil)    
+      self.class_writer.visit(Opcodes.V1_6 ,Opcodes.ACC_PUBLIC + Opcodes.ACC_SUPER, self.class_path , nil, "java/lang/Object", nil)    
       eav = self.class_writer.visitAnnotation("Ljavax/persistence/Entity;", true)
       eav.visitEnd            
       self.mv = self.class_writer.visitMethod(Opcodes.ACC_PUBLIC,"<init>","()V",nil,nil)
@@ -68,7 +70,7 @@ module  Rubernate
      self.mv = self.class_writer.visitMethod(Opcodes.ACC_PUBLIC, "get#{name.capitalize}", "()#{descriptor}", signature, nil)
      self.mv.visitCode()
      self.mv.visitVarInsn(Opcodes.ALOAD, 0)
-     self.mv.visitFieldInsn(Opcodes.GETFIELD, self.name, name, descriptor)
+     self.mv.visitFieldInsn(Opcodes.GETFIELD, self.class_path, name, descriptor)
      self.mv.visitInsn(Opcodes.ARETURN)
      self.mv.visitMaxs(1, 1);
      self.mv.visitEnd();        
@@ -79,7 +81,7 @@ module  Rubernate
      self.mv.visitCode()
      self.mv.visitVarInsn(Opcodes.ALOAD, 0)
      self.mv.visitVarInsn(Opcodes.ALOAD, 1)
-     self.mv.visitFieldInsn(Opcodes.PUTFIELD, self.name , name , descriptor)
+     self.mv.visitFieldInsn(Opcodes.PUTFIELD, self.class_path , name , descriptor)
      self.mv.visitInsn(Opcodes.RETURN)
      self.mv.visitMaxs(2, 2)
      self.mv.visitEnd()      
@@ -115,11 +117,11 @@ module  Rubernate
       self.class_writer.visitEnd
       class_bytes = self.class_writer.toByteArray
       
-      
+      #Uber mega hack :/ anybody wants helpme to fix this?
       cp = ClassPool.getDefault();
-      cp.insertClassPath(ByteArrayClassPath.new(self.name, class_bytes));
+      cp.insertClassPath(ByteArrayClassPath.new(self.class_path.gsub("/","."), class_bytes));
 
-      cp.get(self.name).to_class
+      cp.get(self.class_path.gsub("/",".")).to_class
     end
     
   end
