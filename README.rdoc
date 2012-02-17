@@ -3,11 +3,11 @@
 Create a class with common java values
 
   class User < Rubernate::Entity
-	    integer :id , :id=>true , :generated => [:auto=>true, :strategy=>:auto]
-  	  string :name
-  	  float :float_otra
-  	  double :double_otra
-  	  boolean :active
+	integer :id , :id=>true , :generated => [:auto=>true, :strategy=>:auto]
+	string :name
+	float :float_otra
+	double :double_otra
+	boolean :active
   end
 
   rubernate = Rubernate::Init.new
